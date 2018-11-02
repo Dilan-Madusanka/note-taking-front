@@ -1,46 +1,33 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 
+
 class Add extends Component{
+
 
 	addNote(e){
 
-		e.preventDefault();
+		// e.preventDefault();
 		console.log("Clicked");
 		const title = this.refs.title.value;
-		console.log(title);
+		console.log("title",title);
 		const body = this.refs.body.value;
-		console.log(body);
+		console.log("body",body);
 
-		// axios.post('http://localhost:8080/note/add', {
-  //   		title: 'Fred',
-  //   		body: 'Flintstone'
-  // 		})
-  // 		.then(function (response) {
-  //   		console.log(response);
-  // 		})
-  // 		.catch(function (error) {
-  //   		console.log(error);
-  // 		});
 
-		// fetch('http://localhost:8080/note/add', {
-  // 			method: 'POST',
-  // 			headers: {
-  // 				Accept: 'application/json',
-  //   			'Content-Type': 'application/json',
-  // 			},
-  // 			body: JSON.stringify({
-  //   		title: 'test',
-  //   		body: 'sendfromcode',
-  // 			}),
-		// }).then((response) => response.json())
-  //   		.then((responseJson) => {
-  //     			return responseJson.movies;
-  //   		})
-  //   		.catch((error) => {
-  //     			console.error(error);
-  //   	});
 
+		axios.post('http://localhost:8080/note/add', {
+    		title: title,
+    		body: body
+  		})
+  		.then( (response) =>{
+    		console.log("response",response);
+        this.refs.title.value="";
+        this.refs.body.value="";
+  		})
+  		.catch(function (error) {
+    		console.log(error);
+  		});
 
 	}
 
@@ -81,8 +68,6 @@ class Add extends Component{
 
     		  </fieldset>
     		 </form>
-
-
 
 			)
 	}

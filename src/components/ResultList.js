@@ -1,35 +1,54 @@
 import React,{Component} from 'react';
 
+
 class ResultList extends Component{
+
+  constructor(){
+    super();
+      this.state = {
+        items: []
+      }
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:8080/note/all")
+      .then(results => results.json())
+      .then(results => this.setState({'items': results}));
+    }
+
 
 	render() {
 
-		return(
-
-			<table className="table table-hover">
-  			<thead>
-    			<tr>
-      				<th scope="col">Note Id</th>
-      				<th scope="col">Note Title</th>
-      				<th scope="col">Note Body</th>
-      				<th scope="col">Note Created</th>
-    			</tr>
-  			</thead>
-  			<tbody>
-    			<tr className="table-active">
-      				<th scope="row">Active</th>
-      				<td>Column content</td>
-      				<td>Column content</td>
-      				<td>Column content</td>
-    			</tr>
-  			</tbody>
-			</table> 
-
-			
+		return (
 
 
+      <table className="table table-hover">
+        <thead>
+         <tr>
+             <th scope="col">Note Title</th>
+             <th scope="col">Note Body</th>
+             <th scope="col">Note Created</th>
+         </tr>
+       </thead>
+       <tbody>
 
-			)
+      {this.state.items.map(function(item, id){
+        return  (
+          <tr className="table-active"  key={id}>
+
+             <td>{item.title}</td>
+             <td>{item.body}</td>
+             <td>{item.dateCreated}</td>
+         </tr>
+        )
+
+        }
+      )}
+      </tbody>
+      </table> 
+
+      );
+
 	}
 }
 
